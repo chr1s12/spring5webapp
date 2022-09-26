@@ -1,6 +1,8 @@
 package guru.springframework.spring5webapp.bootstrap;
 
 import guru.springframework.spring5webapp.domain.Address;
+import guru.springframework.spring5webapp.domain.Author;
+import guru.springframework.spring5webapp.domain.Book;
 import guru.springframework.spring5webapp.domain.Publisher;
 import guru.springframework.spring5webapp.repositories.AddressRepository;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
@@ -8,8 +10,6 @@ import guru.springframework.spring5webapp.repositories.BookRepository;
 import guru.springframework.spring5webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -32,36 +32,39 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        /*
+        System.out.println("Started in Bootstrap");
+
+        Address address = new Address("St. Petersburg", "FL", "12345");
+        addressRepository.save(address);
+
+        Publisher publisher = new Publisher("SFG Publishing", address);
+
+        publisherRepository.save(publisher);
+
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "123123");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
+        ddd.setPublisher(publisher);
+        publisher.getBooks().add(ddd);
+
         authorRepository.save(eric);
         bookRepository.save(ddd);
+        publisherRepository.save(publisher);
 
         Author rod = new Author("Rod", "Johnson");
         Book noEJB = new Book("J2EE Development without EJB", "33339992");
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        noEJB.setPublisher(publisher);
+        publisher.getBooks().add(noEJB);
+
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-        */
+        publisherRepository.save(publisher);
 
-        Address address1 = new Address("city1", "state1", "12345");
-        Publisher publisher1 = new Publisher("publisher1", address1);
-        address1.getPublishers().add(publisher1);
-
-        Address address2 = new Address("city2", "state2", "54321");
-        Publisher publisher2 = new Publisher("publisher2", address2);
-        address2.getPublishers().add(publisher2);
-
-        addressRepository.saveAll(Arrays.asList(address1, address2));
-        publisherRepository.saveAll(Arrays.asList(publisher1, publisher2));
-
-        System.out.println("Started in Bootstrap");
         //System.out.println("Number of Books: " + bookRepository.count());
         publisherRepository.findAll().forEach(BootStrapData::printPublishers);
     }

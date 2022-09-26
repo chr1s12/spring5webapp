@@ -1,8 +1,9 @@
 package guru.springframework.spring5webapp.domain;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Address {
@@ -14,8 +15,6 @@ public class Address {
     private String city;
     private String state;
     private String zip;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "address")
-    private Set<Publisher> publishers = new HashSet<>();
 
     public Address() {
     }
@@ -83,11 +82,4 @@ public class Address {
         this.zip = zip;
     }
 
-    public Set<Publisher> getPublishers() {
-        return publishers;
-    }
-
-    public void setPublishers(Set<Publisher> publishers) {
-        this.publishers = publishers;
-    }
 }
