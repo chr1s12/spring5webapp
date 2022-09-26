@@ -65,11 +65,6 @@ public class BootStrapData implements CommandLineRunner {
         bookRepository.save(noEJB);
         publisherRepository.save(publisher);
 
-        //System.out.println("Number of Books: " + bookRepository.count());
-        publisherRepository.findAll().forEach(BootStrapData::printPublishers);
-    }
-
-    private static void printPublishers(Publisher publisher) {
-        System.out.println(publisher.toString());
+        publisherRepository.findAll().forEach(System.out::println);
     }
 }
